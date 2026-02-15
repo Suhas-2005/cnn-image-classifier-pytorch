@@ -1,80 +1,150 @@
-# CIFAR-10 Image Classifier
+# CNN Image Classifier using PyTorch (CIFAR-10)
 
-This project implements a Convolutional Neural Network (CNN) for classifying images into the CIFAR-10 dataset categories. The model can classify images from URLs into one of ten categories: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck.
+## Overview
 
-## Features
+This project implements an end-to-end Convolutional Neural Network (CNN) using PyTorch for multi-class image classification on the CIFAR-10 dataset.
 
-- CNN model optimized for CIFAR-10 classification
-- Support for loading and processing images from URLs
-- Confidence scores for predictions
-- Top-5 predictions for each image
-- Training progress visualization
-- Model checkpointing (saves best model)
+The system includes:
+- Custom CNN architecture
+- Complete training pipeline
+- Model checkpointing
+- Inference pipeline for new images
+- Training performance visualization
 
-## Requirements
+The trained model classifies images into one of the following 10 categories:
 
-Install the required packages using:
+Airplane, Automobile, Bird, Cat, Deer, Dog, Frog, Horse, Ship, Truck
+
+---
+
+## Dataset
+
+This project uses the CIFAR-10 dataset, which consists of:
+
+- 60,000 color images
+- 10 object classes
+- Image size: 32x32 pixels
+- 50,000 training images
+- 10,000 test images
+
+Official dataset link:
+https://www.cs.toronto.edu/~kriz/cifar.html
+
+---
+
+## Project Structure
+
+```
+├── model.py                # CNN architecture definition
+├── train.py                # Training script
+├── predict.py              # Inference script
+├── predict_notebook.ipynb  # Jupyter demo
+├── requirements.txt        # Required dependencies
+├── cifar10_best.pth        # Trained model weights
+└── README.md
+```
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Suhas-2005/cnn-image-classifier-pytorch.git
+cd cnn-image-classifier-pytorch
+```
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Project Structure
-
-- `model.py`: Contains the CNN architecture
-- `train.py`: Training script for the model
-- `predict.py`: Script for making predictions on new images
-- `requirements.txt`: List of required Python packages
+---
 
 ## Training the Model
 
-To train the model, run:
+To train the model:
 
 ```bash
 python train.py
 ```
 
-The script will:
-1. Download the CIFAR-10 dataset
-2. Train the model for 30 epochs
-3. Save the best model as 'cifar10_best.pth'
-4. Generate a training curve plot
+The training script will:
+- Automatically download the CIFAR-10 dataset
+- Train the CNN for 30 epochs
+- Save the best-performing model as `cifar10_best.pth`
+- Generate training curve plots
+
+---
 
 ## Making Predictions
 
-To use the trained model for predictions:
+Example usage:
 
 ```python
 from predict import CIFAR10Predictor
 
-# Initialize the predictor
 predictor = CIFAR10Predictor(model_path='cifar10_best.pth')
 
-# Make prediction on an image URL
 image_url = "your_image_url_here"
 predictions = predictor.predict(image_url)
 
-# Print predictions
 for i, pred in enumerate(predictions, 1):
     print(f"{i}. {pred['class']} - {pred['confidence']*100:.2f}% confidence")
 ```
 
+The model returns:
+- Top-5 predictions
+- Confidence scores for each class
+
+---
+
 ## Model Architecture
 
-The CNN architecture consists of:
-- 3 convolutional layers with batch normalization
-- Max pooling after each convolutional layer
+The CNN consists of:
+
+- 3 Convolutional layers with Batch Normalization
+- ReLU activation functions
+- Max Pooling layers
 - Dropout for regularization
-- 2 fully connected layers
+- 2 Fully Connected layers
 - Softmax output layer
+
+---
 
 ## Performance
 
-The model typically achieves around 75-80% accuracy on the CIFAR-10 test set after training.
+- Test Accuracy: ~75–80%
+- Optimizer: Adam
+- Loss Function: CrossEntropyLoss
+- Epochs: 30
 
-## Notes
+GPU acceleration is automatically used if available.
 
-- The model expects input images to be RGB
-- Images are automatically resized to 32x32 pixels
-- The model returns confidence scores for all predictions
-- GPU acceleration is automatically used if available 
+---
+
+## Technologies Used
+
+- Python
+- PyTorch
+- NumPy
+- Matplotlib
+- Pillow
+
+---
+
+## Future Improvements
+
+- Implement transfer learning (ResNet)
+- Add confusion matrix visualization
+- Improve accuracy beyond 85%
+- Deploy as a web application
+
+---
+
+## Author
+
+K M Suhas  
+Computer Science Student | Machine Learning Enthusiast
